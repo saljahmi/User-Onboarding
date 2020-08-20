@@ -31,7 +31,7 @@ export default function Form(props) {
         <h2>Add a User</h2>
 
         {/* 🔥 DISABLE THE BUTTON */}
-        <button disabled={disabled}>submit</button>
+        <button id='submit' disabled={disabled}>submit</button>
 
         <div className='errors'>
           {/* 🔥 RENDER THE VALIDATION ERRORS HERE */}
@@ -62,7 +62,7 @@ export default function Form(props) {
             value={values.email}
             onChange={onInputChange}
             name='email'
-            type='text'
+            type='email'
           />
         </label>
 
@@ -71,7 +71,7 @@ export default function Form(props) {
             value={values.password}
             onChange={onInputChange}
             name='password'
-            type='text'
+            type='password'
           />
         </label>
       </div>
