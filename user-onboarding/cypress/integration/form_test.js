@@ -35,14 +35,24 @@ describe('User Onboarding', () => {
         .check()  
       })
 
-      it('can submit the form data', () => {
-          cy.get("input[name='name']").type('Sarah')
-          cy.get("input[name='email']").type('s@ljahmi.com')
-          cy.get("input[name='password']").type('password')
-          cy.get('[type="checkbox"]').check()
-          cy.get("button[id='submit']").click()
-          cy.contains('Sarah (s@ljahmi.com)').should('exist')
+      it('submit button is enabled', () => {
+        cy.get("button[id='submit']").should('be.enabled')
       })
 
+      it('can submit the form data', () => {
+        cy.get("button[id='submit']").click()
+        cy.contains('h2','Sarah').should('exist')
+        cy.contains('p','Email: s@ljahmi.com').should('exist')
+      })
+
+      it('check form validation if input is empty', () => {
+        cy.get('input:invalid').should('have.length', 0)
+        cy.get('[type="email"]').type('not_an_email')
+        cy.get("button[id='submit']").click({force: true})
+        cy.get('input:invalid').should('have.length', 1)
+        cy.get('[type="email"]').then(($input) => {
+          expect($input[0].errors).to.eq('Must include email address')
+        })
+      })
    })
 })
